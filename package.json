@@ -1,0 +1,71 @@
+{
+  "name": "bp-timer",
+  "version": "1.0.0",
+  "description": "British Parliamentary debate timer that lives in the macOS menu bar.",
+  "main": "main.js",
+  "author": {
+    "name": "Abhi Wadhwa",
+    "email": "billchanghaofei@gmail.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "icons": "node assets/makeIcon.js && bash assets/build-icns.sh",
+    "pack": "electron-builder --mac --dir",
+    "dist": "electron-builder --mac --arm64 --x64",
+    "dist:universal": "electron-builder --mac --universal",
+    "dist:arm64": "electron-builder --mac --arm64",
+    "dist:x64": "electron-builder --mac --x64"
+  },
+  "build": {
+    "appId": "com.abhiwadhwa.bptimer",
+    "productName": "BP Timer",
+    "copyright": "Copyright © 2026 Abhi Wadhwa",
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer.html",
+      "renderer.js",
+      "bell.html",
+      "bell.js",
+      "assets/trayTemplate.png",
+      "assets/trayTemplate@2x.png",
+      "assets/icon.icns",
+      "!assets/makeIcon.js",
+      "!assets/icon.iconset",
+      "!assets/build-icns.sh"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "assets/icon.icns",
+      "target": [
+        { "target": "dmg", "arch": ["arm64", "x64"] },
+        { "target": "zip", "arch": ["arm64", "x64"] }
+      ],
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "identity": null,
+      "extendInfo": {
+        "LSUIElement": true,
+        "NSHighResolutionCapable": true
+      }
+    },
+    "dmg": {
+      "title": "BP Timer ${version}",
+      "icon": "assets/icon.icns",
+      "window": { "width": 540, "height": 380 },
+      "contents": [
+        { "x": 140, "y": 180, "type": "file" },
+        { "x": 400, "y": 180, "type": "link", "path": "/Applications" }
+      ]
+    }
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  }
+}

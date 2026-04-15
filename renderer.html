@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BP Timer</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: transparent;
+    color: #f8fafc;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+  }
+  .card {
+    margin: 6px;
+    height: calc(100% - 12px);
+    background: #0f172a;
+    border-radius: 12px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 20px 24px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Little pointer up toward the menu-bar icon */
+  .card::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 14px;
+    height: 14px;
+    background: #0f172a;
+  }
+  #status {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.4rem;
+    height: 1rem;
+    text-align: center;
+  }
+  #timer {
+    font-size: 4.8rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 4px 0 14px;
+  }
+  .phase-bar {
+    width: 100%;
+    height: 6px;
+    background: #1e293b;
+    border-radius: 999px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .phase-bar > div {
+    height: 100%;
+    background: linear-gradient(90deg, #22c55e 0%, #eab308 55%, #ef4444 100%);
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+  .controls {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    -webkit-app-region: no-drag;
+  }
+  button {
+    flex: 1;
+    padding: 0.75rem 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    transition: transform 0.08s ease, opacity 0.15s ease;
+    font-family: inherit;
+  }
+  #startBtn { background: #22c55e; }
+  #stopBtn  { background: #ef4444; }
+  #resetBtn { background: #475569; }
+  button:hover  { opacity: 0.92; }
+  button:active { transform: translateY(1px); }
+  button:disabled { opacity: 0.4; cursor: default; }
+
+  .milestones {
+    margin-top: 14px;
+    width: 100%;
+    font-size: 0.72rem;
+    color: #64748b;
+    -webkit-app-region: no-drag;
+  }
+  .milestones .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 0;
+  }
+  .milestones .row.active {
+    color: #f8fafc;
+    font-weight: 600;
+  }
+  .hint {
+    margin-top: 10px;
+    font-size: 0.65rem;
+    color: #475569;
+    text-align: center;
+    letter-spacing: 0.06em;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div id="status">Ready</div>
+    <div id="timer">0:00</div>
+    <div class="phase-bar"><div id="phaseFill"></div></div>
+
+    <div class="controls">
+      <button id="startBtn">Start</button>
+      <button id="stopBtn">Stop</button>
+      <button id="resetBtn">Reset</button>
+    </div>
+
+    <div class="milestones">
+      <div class="row" data-at="60">  <span>1:00</span> <span>POI Window Open</span></div>
+      <div class="row" data-at="360"> <span>6:00</span> <span>POI Window Closed</span></div>
+      <div class="row" data-at="420"> <span>7:00</span> <span>Time Expired</span></div>
+      <div class="row" data-at="435"> <span>7:15</span> <span>Grace Period Over</span></div>
+      <div class="row" data-at="440"> <span>7:20</span> <span>Hard Stop</span></div>
+    </div>
+
+    <div class="hint">⌘⇧S start/stop · ⌘⇧R reset</div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
