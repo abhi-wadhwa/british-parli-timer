@@ -10,17 +10,31 @@ Reset/Quit menu. ⌘⇧S and ⌘⇧R work globally.
 
 ## Install (users)
 
-Grab the latest DMG from the [Releases page](../../releases):
+Open **Terminal** (⌘Space → type "terminal"), paste this line, press Return:
 
-- **Apple Silicon (M1/M2/M3/M4):** `BP Timer-<version>-arm64.dmg`
-- **Intel:** `BP Timer-<version>.dmg`
+```
+curl -fsSL https://github.com/abhi-wadhwa/british-parli-timer/releases/latest/download/install.sh | bash
+```
 
-Drag *BP Timer* to Applications. On first launch macOS will warn
-because the app isn't signed with a Developer ID cert yet — **right-click
-→ Open** once, then click **Open** in the dialog. From that point on
-it opens normally.
+That's it. The script detects your Mac's architecture, downloads the
+right DMG from the latest release, installs it to `/Applications`,
+clears macOS's quarantine flag, and launches the app. You should see
+a bell icon appear in your menu bar.
 
-Alternative (Terminal): `xattr -d com.apple.quarantine "/Applications/BP Timer.app"`
+### Manual install (if you'd rather not run a script)
+
+1. Download the DMG that matches your Mac from the
+   [Releases page](../../releases/latest):
+   - **Apple Silicon (M1/M2/M3/M4):** `BP.Timer-<version>-arm64.dmg`
+   - **Intel:** `BP.Timer-<version>.dmg`
+2. Open the DMG and drag **BP Timer** to Applications.
+3. Open Terminal and run (this clears the Gatekeeper quarantine —
+   without it macOS 15+ will say "BP Timer is damaged", even though
+   it isn't; the app just isn't signed with an Apple Developer ID):
+   ```
+   xattr -dr com.apple.quarantine "/Applications/BP Timer.app"
+   ```
+4. Launch BP Timer from Applications.
 
 ## BP milestones
 

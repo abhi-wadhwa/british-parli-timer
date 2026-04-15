@@ -1,8 +1,42 @@
-# BP Timer v1.0.0
+# BP Timer v1.0.1
 
 A British Parliamentary debate timer that lives entirely in the macOS
 menu bar. Great for judges who want to track a speech while flowing
 without a second window stealing their attention.
+
+## What's new in v1.0.1
+
+- **One-command installer.** Paste one line into Terminal and BP Timer
+  installs itself, clears the Gatekeeper quarantine, and launches — no
+  "BP Timer is damaged" error, no right-click gymnastics.
+
+## Install
+
+Open **Terminal** (⌘Space → type `terminal` → Return), paste this,
+press Return:
+
+```
+curl -fsSL https://github.com/abhi-wadhwa/british-parli-timer/releases/latest/download/install.sh | bash
+```
+
+Look for a bell icon in your menu bar. That's it.
+
+### Manual install
+
+If you'd rather install by hand:
+
+1. Download the DMG for your Mac:
+   - **Apple Silicon (M1/M2/M3/M4):** `BP.Timer-1.0.1-arm64.dmg`
+   - **Intel:** `BP.Timer-1.0.1.dmg`
+2. Open the DMG, drag **BP Timer** to Applications.
+3. Open Terminal and run:
+   ```
+   xattr -dr com.apple.quarantine "/Applications/BP Timer.app"
+   ```
+   (On macOS 15+ Gatekeeper refuses unsigned apps with a misleading
+   "is damaged" message. This removes the quarantine flag; the app is
+   fine, it just hasn't been signed with a paid Apple Developer ID.)
+4. Launch BP Timer from Applications.
 
 ## What it does
 
@@ -13,6 +47,7 @@ without a second window stealing their attention.
   large digital timer, phase-coloured progress bar, and a milestone
   reference panel.
 - **Service-bell dings** at every BP milestone:
+
   | Time  | Status              | Rings |
   |-------|---------------------|-------|
   | 1:00  | POI Window Open     | 1     |
@@ -20,37 +55,23 @@ without a second window stealing their attention.
   | 7:00  | Time Expired        | 2     |
   | 7:15  | Grace Period Over   | 3     |
   | 7:20+ | Hard Stop           | 1     |
+
 - **Global keyboard shortcuts** (work from any app, even while flowing):
   - `⌘⇧S` start / stop
   - `⌘⇧R` reset
 - **No dock icon, no taskbar clutter** — pure menu-bar utility.
 
-## Install
-
-### Apple Silicon (M1/M2/M3/M4)
-Download **BP Timer-1.0.0-arm64.dmg**.
-
-### Intel Mac
-Download **BP Timer-1.0.0.dmg**.
-
-Open the DMG, drag BP Timer into Applications, then:
-
-> **Gatekeeper first-launch workaround.** This release is not signed
-> with an Apple Developer ID (yet), so macOS will warn on first launch.
->
-> - Open Finder → Applications.
-> - **Right-click** BP Timer → **Open**.
-> - Click **Open** in the dialog that appears.
->
-> After this one-time step, the app launches normally. You'll see a
-> bell icon with `0:00: Ready` in your menu bar.
-
 ## Known limitations
 
-- Unsigned — see Gatekeeper note above.
-- No pause-preserving-state: "Stop" + "Start" continues from where you
-  stopped, but "Reset" clears the timer to 0:00.
-- No keyboard shortcut to toggle the popup yet (use menu-bar click).
+- Unsigned. A paid Apple Developer ID ($99/yr) would let us ship a
+  fully signed + notarized build that installs with zero extra steps.
+  On the roadmap for a future version.
+- No pause-preserving-state: **Stop** + **Start** continues from where
+  you stopped, but **Reset** clears the timer to 0:00.
+
+## Uninstall
+
+Drag `/Applications/BP Timer.app` to the Trash.
 
 ## Feedback
 
