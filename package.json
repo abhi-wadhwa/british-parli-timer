@@ -1,6 +1,6 @@
 {
   "name": "bp-timer",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "British Parliamentary debate timer that lives in the macOS menu bar.",
   "main": "main.js",
   "author": {
@@ -28,6 +28,7 @@
       "renderer.js",
       "bell.html",
       "bell.js",
+      "assets/ding.wav",
       "assets/trayTemplate.png",
       "assets/trayTemplate@2x.png",
       "assets/icon.icns",

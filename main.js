@@ -40,6 +40,8 @@ function milestoneFor(s) {
   if (s === 420) return { status: 'Time Expired', dings: 2 };
   if (s === 435) return { status: 'Grace Period Over', dings: 3 };
   if (s === 440) return { status: 'HARD STOP', dings: 1 };
+  // Past 7:20 — ding every second until they stop
+  if (s > 440) return { status: 'HARD STOP', dings: 1 };
   return null;
 }
 
@@ -81,8 +83,6 @@ function tick() {
   if (m) {
     state.status = m.status;
     playBell(m.dings);
-  } else if (state.seconds > 440) {
-    state.status = 'HARD STOP';
   }
   updateTrayTitle();
   broadcast();
